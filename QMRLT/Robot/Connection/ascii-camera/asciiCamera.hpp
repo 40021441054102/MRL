@@ -14,6 +14,8 @@
     # include <unistd.h>
     # include <iostream>
     # include <string>
+    # include <chrono>
+    # include <thread>
     //-- Check Operating System for Specific Escape Character
     # if defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__) || defined(__MACH__) || defined(macintosh) || defined(Macintosh)
         /**

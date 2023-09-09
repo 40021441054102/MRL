@@ -48,4 +48,22 @@
             system("tput cnorm");
         }
     }
+    /**
+     * @brief Method to Convert Image into Ascii Background
+     */
+    void AsciiCamera::convert(cv::Mat& _input, const int& _speedOption) {
+        getTerminalSize();
+        cv::resize(_input, _input, cv::Size(terminal.cols, terminal.rows), cv::INTER_LINEAR);
+        for (int i = 0; i < _input.rows; i++) {
+            for (int j = 0; j < _input.cols; j++) {
+                color.blue = _input.at<cv::Vec3b>(i, j)[0];
+                color.green = _input.at<cv::Vec3b>(i, j)[1];
+                color.red = _input.at<cv::Vec3b>(i, j)[2];
+                std::cout << escChar << "48;2;" << color.red << ";" << color.green << ";" << color.blue << "m" << ascii_pixel << escChar << "0m";
+            }
+        }
+        std::cout << "\033[" << terminal.rows << "A\033[0G";
+        std::chrono::milliseconds duration(1);
+        std::this_thread::sleep_for(duration);
+    }
 # endif // __QMRLT_ASCII_IMAGE
