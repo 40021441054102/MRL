@@ -51,7 +51,7 @@
     /**
      * @brief Method to Convert Image into Ascii Background
      */
-    void AsciiCamera::convert(cv::Mat& _input, const int& _speedOption) {
+    void AsciiCamera::convert(cv::Mat& _input) {
         getTerminalSize();
         cv::resize(_input, _input, cv::Size(terminal.cols, terminal.rows), cv::INTER_LINEAR);
         for (int i = 0; i < _input.rows; i++) {
@@ -59,11 +59,29 @@
                 color.blue = _input.at<cv::Vec3b>(i, j)[0];
                 color.green = _input.at<cv::Vec3b>(i, j)[1];
                 color.red = _input.at<cv::Vec3b>(i, j)[2];
-                std::cout << escChar << "48;2;" << color.red << ";" << color.green << ";" << color.blue << "m" << ascii_pixel << escChar << "0m";
+                std::cout << "\033[48;2;" << color.red << ";" << color.green << ";" << color.blue << "m" << ascii_pixel << "\033[0m";
             }
         }
         std::cout << "\033[" << terminal.rows << "A\033[0G";
         std::chrono::milliseconds duration(1);
         std::this_thread::sleep_for(duration);
+    }
+    /**
+     * @brief Method to Read Camera Frame and Show Image
+     */
+    void AsciiCamera::generate(const int& _cameraNumber, const int& _speedOption) {
+        if (_speedOption == FAST) {
+            cv::VideoCapture capture(_cameraNumber);
+            cv::Mat frame;
+            changeBlinkingState();
+            while (true) {
+                capture >> frame;
+                convert(frame);
+            }
+        } else if (_speedOption == SUPER_FAST) {
+
+        } else {
+            std::cout << FAILED "Invalid Speed Option" ENDL;
+        }
     }
 # endif // __QMRLT_ASCII_IMAGE

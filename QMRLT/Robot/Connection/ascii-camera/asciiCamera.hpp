@@ -16,26 +16,9 @@
     # include <string>
     # include <chrono>
     # include <thread>
-    //-- Check Operating System for Specific Escape Character
-    # if defined(unix) || defined(__unix) || defined(__unix__) || defined(__APPLE__) || defined(__MACH__) || defined(macintosh) || defined(Macintosh)
-        /**
-         * @brief Unix-Based Operating System
-         */
-        # define IS_UNIX true
-        /**
-         * @brief Escape Character
-         */
-        std::string escChar = "\033[";
-    # else
-        /**
-         * @brief Not Unix-Based Operating System
-         */
-        # define IS_UNIX false
-        /**
-         * @brief Escape Character
-         */
-        std::string escChar = "\1xb[";
-    # endif // Check Operating System for Console Escape Character
+    //-- Definitions
+    # define ENDL "\n"
+    # define FAILED "\033[1m\033[38;2;255;0;0m[FAILED]\033[0m "
     /**
      * @brief Speed Options 
      */
@@ -104,6 +87,7 @@
              * @brief Object to Access Terminal's Data
              */
             Terminal terminal;
+            std::mutex frameMutex;
             struct winsize _terminal;
         public:
             /**
@@ -117,10 +101,14 @@
             /**
              * @brief Method to Convert Image into Ascii Background
              */
-            void convert(cv::Mat& _input, const int& _speedOption);
+            void convert(cv::Mat& _input);
             /**
              * @brief Method to Change Cursor Blinking State in Terminal
              */
             void changeBlinkingState();
+            /**
+             * @brief Method to Read Camera Frame and Show Image
+             */
+            void generate(const int& _cameraNumber, const int& _speedOption);
     };
 # endif // __QMRLT_ASCII_IMAGE
