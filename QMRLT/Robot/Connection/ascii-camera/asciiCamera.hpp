@@ -11,6 +11,7 @@
     # include <opencv4/opencv2/imgproc.hpp>
     # include <opencv4/opencv2/highgui.hpp>
     # include <sys/ioctl.h>
+    # include <unistd.h>
     # include <iostream>
     # include <string>
     //-- Check Operating System for Specific Escape Character
