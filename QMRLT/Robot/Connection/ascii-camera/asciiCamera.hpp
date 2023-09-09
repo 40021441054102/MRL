@@ -33,6 +33,19 @@
         std::string escChar = "\1xb[";
     # endif // Check Operating System for Console Escape Character
     /**
+     * @brief Speed Options 
+     */
+    enum SpeedOptions {
+        /**
+         * @brief Super Fast Method Using Multi Threading
+         */
+        SUPER_FAST,
+        /**
+         * @brief Faster than Wifi Connection
+         */
+        FAST
+    };
+    /**
      * @brief Class Definition of Colorful Characters
      */
     class Character {
@@ -65,5 +78,11 @@
              * @param _red Red
              */
             void setRGB(int& _blue, int& _green, int& _red) noexcept;
+    };
+    /**
+     * @brief Class Definition of Ascii Camera
+     */
+    class AsciiCamera : public Character {
+        private:
     };
 # endif // __QMRLT_ASCII_IMAGE
