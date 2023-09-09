@@ -10,6 +10,7 @@
     //-- Include Needed Libraries
     # include <opencv4/opencv2/imgproc.hpp>
     # include <opencv4/opencv2/highgui.hpp>
+    # include <sys/ioctl.h>
     # include <iostream>
     # include <string>
     //-- Check Operating System for Specific Escape Character
@@ -51,9 +52,9 @@
     class Character {
         protected:
             /**
-             * @brief Ascii Pixel
+             * @brief Ascii Pixel String
              */
-            std::string ascii_pixel;
+            char ascii_pixel;
             /**
              * @brief Structure to Store RGB's Value of Ascii Pixel
              */
@@ -84,5 +85,39 @@
      */
     class AsciiCamera : public Character {
         private:
+            /**
+             * @brief Ascii Pixel
+             */
+            Character _char;
+            /**
+             * @brief Structure to Store Terminal's Data
+             */
+            struct Terminal {
+                bool blink;
+                int rows;
+                int cols;
+            };
+            /**
+             * @brief Object to Access Terminal's Data
+             */
+            Terminal terminal;
+            struct winsize _terminal;
+        public:
+            /**
+             * @brief Constructor
+             */
+            AsciiCamera() noexcept;
+            /**
+             * @brief Method to Get Size of Terminal
+             */
+            void getTerminalSize() noexcept;
+            /**
+             * @brief Method to Convert Image into Ascii Background
+             */
+            void convert(cv::Mat& _input, const int& _speedOption);
+            /**
+             * @brief Method to Change Cursor Blinking State in Terminal
+             */
+            void changeBlinkingState();
     };
 # endif // __QMRLT_ASCII_IMAGE
