@@ -4,6 +4,7 @@
     int main(int argc, char** argv) {
         if (argc != 3) {
             std::cout << FAILED "Specify Speed Option and Camera ID Please" ENDL;
+            std::cout << LOG "Example : ./run SUPER_FAST 0" ENDL;
             return EXIT_FAILURE;
         }
         AsciiCamera obj;
