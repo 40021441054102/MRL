@@ -19,6 +19,7 @@
     //-- Definitions
     # define ENDL "\n"
     # define FAILED "\033[1m\033[38;2;255;0;0m[FAILED]\033[0m "
+    # define LOG "\033[1m\033[38;2;200;200;200m[LOG]\033[0m "
     /**
      * @brief Speed Options 
      */
